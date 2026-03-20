@@ -10,8 +10,7 @@ engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autoflush=False, autocommit=False, bind=engine)
 
 
-class Base(declarative_base):
-    pass
+Base = declarative_base()
 
 
 def get_db():
