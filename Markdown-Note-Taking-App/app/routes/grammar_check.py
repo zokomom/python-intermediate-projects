@@ -12,11 +12,13 @@ spell = SpellChecker()
 
 @router.post("", status_code=status.HTTP_200_OK)
 def check_grammar(note: GrammarCheck):
-    words = note.markdown_content.split()
+    full_text = note.title + " " + note.markdown_content
+    words = full_text.split()
     misspelled = spell.unknown(words)
     corrections = {word: spell.correction(word) for word in misspelled}
     return {
-        "original": note.markdown_content,
-        "mistakes": list(misspelled),
+        "original_title": note.title,
+        "original_content": note.markdown_content,
+        "mistakes": len(misspelled),
         "corrections": corrections
     }
